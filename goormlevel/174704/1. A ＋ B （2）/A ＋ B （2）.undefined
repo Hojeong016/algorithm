@@ -1,0 +1,17 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		//공백을 두고 주어진 경우 
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		StringBuilder sb = new StringBuilder();
+		
+		double num1 = Double.parseDouble(st.nextToken());
+		double num2 = Double.parseDouble(st.nextToken());
+
+		sb.append(String.format("%.6f",num1+num2));
+		System.out.println(sb);
+	}
+}
