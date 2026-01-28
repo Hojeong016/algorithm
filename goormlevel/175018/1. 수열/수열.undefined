@@ -1,0 +1,17 @@
+import java.io.*;
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int K = Integer.parseInt(br.readLine());
+		
+		int[] dq = new int[K+1];
+		dq[0] = 0;
+		dq[1] = 1;
+
+		for(int i = 2; i < K; i++){
+			dq[i] = (dq[i-1] + dq[i-2]) % 1000000007;
+		}
+
+		System.out.println(dq[K-1]);
+	}
+}
