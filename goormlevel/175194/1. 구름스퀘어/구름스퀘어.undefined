@@ -1,0 +1,56 @@
+//최대수 구하는 그리드 
+
+import java.io.*;
+import java.util.*;
+
+class Main {
+	
+	static class Party{
+		int start;
+		int end;
+
+		Party(int start, int end){
+			this.start = start;
+			this.end = end;
+		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		//행사의 객체 만들기 
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		int N = Integer.parseInt(br.readLine());
+		Party[] Partys = new Party[N];
+		
+		for(int i = 0; i<N; i++){
+			st = new StringTokenizer(br.readLine());
+			int s = Integer.parseInt(st.nextToken());
+			int e = Integer.parseInt(st.nextToken());
+			Partys[i] = new Party(s,e);
+		}
+
+		// Partys 정렬 (end 시간 기준)
+		Arrays.sort(Partys,(a,b) ->
+								{
+								  if(b.end != a.end ){
+										return Integer.compare(a.end, b.end);
+									}
+									return  Integer.compare(a.start, b.start);
+								}
+								);
+		// 행사가 제일 빨리 끝나는 숭 부터 정렬을 함 
+		int before = Partys[0].end;
+		int count = 1;
+		for(int i = 1; i < N; i++){
+			if(Partys[i].start > before){
+				count += 1;
+				before = Partys[i].end;
+			}
+		}
+
+		System.out.println(count);
+	
+	}
+}
+
+
