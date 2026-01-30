@@ -1,0 +1,34 @@
+//37
+import java.io.*;
+import java.util.*;
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		StringBuilder sb = new StringBuilder();
+		
+		int N = Integer.parseInt(st.nextToken());
+		int M = Integer.parseInt(st.nextToken());
+		StringTokenizer st2 = new StringTokenizer(br.readLine());
+		
+		for(int i = 0; i < N ; i++){
+			int num = Integer.parseInt(st2.nextToken());
+			
+			if( num % M != 0 ){
+				int re = num * M;
+				sb.append(re).append(" ");
+			}else{
+				sb.append(num).append(" ");
+			}
+		}
+		
+		System.out.println(sb);
+	}
+}
+
+//입력 :
+//N 주어지는 원소 개수 
+//M : 조건 수 
+//제약 : N 에서 M으로 나누어 떨어지지 않으면 N*M
+// 배수이면 그대로 
+// 출력: 순서대로 출력하기 
