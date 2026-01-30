@@ -1,0 +1,70 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	static class Node{
+		int value;
+		//열/가로
+		int row;
+		//행/(세로)
+		int column;
+		Node(int v, int r, int c){
+			  this.value = v;
+				this.row = r;
+				this.column = c;
+		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int N = Integer.parseInt(br.readLine());
+		StringTokenizer st;
+		int max = N * N;
+		ArrayList<Node> nodes = new ArrayList<>();
+	
+		int rowNum = 0;
+		int cNum =0;
+
+		int zeroIdx = 0;
+		int zeroRowNum = 0;
+		int zeroCNum = 0;
+		
+		for(int i = 0; i < N; i++){
+			st = new StringTokenizer(br.readLine());
+			rowNum = i;
+			 for(int j = 0; j <  N; j++){
+				 cNum = j;
+				 int v = Integer.parseInt(st.nextToken());
+				 Node newNode = new Node(v, rowNum, cNum);
+				 nodes.add(newNode);
+				 if(v == 0){
+					 zeroIdx = nodes.size() - 1;
+					 zeroRowNum = rowNum;
+					 zeroCNum = cNum;
+				 }
+			 }
+			cNum = 0;
+		}
+
+		//행 더하기 
+		//로우 더하기 
+		int result = 0;
+		for(Node n : nodes ){
+			if(n.row == zeroRowNum || n.column == zeroCNum){
+				result += n.value;
+			}
+		}
+		
+		System.out.println(result);
+	}
+}
+
+//입력 : 판의 크기 : N 
+//제한 : 0은 한번만 주어진다.
+//출력 : 0 기준 가로 세로 합 
+
+//노드 
+// value 와 행 , 열의 값을 담은 
+// 0희 행 값 같은 노드 의 vlaue 총합
+// 0의 열 값과 같은 노드의 vlaue 총합
+// 열 + 행 
