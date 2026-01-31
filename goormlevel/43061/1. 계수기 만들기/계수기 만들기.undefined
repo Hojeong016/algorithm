@@ -1,0 +1,62 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		//계수기 숫자판 개수 
+		int numTotal = Integer.parseInt(br.readLine());
+		//각 숫자판의 최댓값
+		int[] numMax = new int[numTotal];
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		for(int i = 0; i<numTotal; i++){		
+			numMax[i] = Integer.parseInt(st.nextToken());
+		}
+
+		// 각 숫자판의 초기값
+		int[] num = new int[numTotal];
+		StringTokenizer st1 = new StringTokenizer(br.readLine());
+		
+		for(int j = 0; j<numTotal; j++){		
+			num[j] = Integer.parseInt(st1.nextToken());
+		}
+
+		StringTokenizer st2 = new StringTokenizer(br.readLine());
+		// 버튼 횟수 
+		int bCount = Integer.parseInt(st2.nextToken());
+		
+	  for(int b = 0; b < bCount; b++){
+			//버튼을 누르면 가장 마지막 인덱스의 값이 +1
+			int lastValue = num[numTotal - 1] + 1;
+			//만약 num[-1] += 1; 값이 최댓값을 넘었으면 0으로 초기화 , 왼쪽 값을 +1 시킨다. 
+			//멈추는 조건 
+			if(lastValue > numMax[numTotal-1]){
+				lastValue = 0;
+				for(int be = numTotal-2; be >= 0; be --){
+					int next = num[be] + 1;
+					if(next > numMax[be]){
+						num[be] = 0;
+						continue;
+					}else{
+						num[be] = next;
+						break;
+					}
+				}
+			}		
+			num[numTotal - 1] = lastValue;
+		}
+
+		StringBuilder sb = new StringBuilder();
+		for(int n : num ){
+			sb.append(String.valueOf(n));
+		}
+		System.out.println(sb);
+	}
+}
+
+
+// 버튼 한번  = 가장 오른 쪽 +1 
+// 각 자리마다 최댓값이 다르다. 
+// 만약 최댓 값보다 값이 커진 다면 최솟값 -> 0으로 초기화 , 왼쪽 자리 +1 
+// 만약 가장 왼쪽이 최댓값이 넘어가면 왼쪽 울림 전파 x
