@@ -1,0 +1,69 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+
+	static int N;
+	static int K; // 값 
+	
+	static int[] dx = {-1,-1,-1, 0, 0, 1, 1, 1};
+	static int[] dy = {-1, 0, 1,-1, 1,-1, 0, 1};
+	
+	static boolean[][] visited;
+	static int[][] pan;
+	
+	static int countGit(int x, int y){
+      int total = 0;
+			int curx = x;
+			int cury = y;
+
+			//8탐색
+			for(int i = 0; i<8; i++){
+				int nx = curx + dx[i];
+				int ny = cury + dy[i];
+				
+				if(nx < 0 || ny < 0 || nx >= N || ny >= N){
+					//범위 밖에 지나간다. 
+					continue;
+				}
+
+				//만약 구름이 있다 다음 구간에?
+				if(pan[nx][ny] == 1){
+					total += 1;
+				}
+			}
+		  return total;	
+		}
+			
+		
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringTokenizer st = new StringTokenizer(br.readLine());
+		N = Integer.parseInt(st.nextToken());
+		K = Integer.parseInt(st.nextToken());
+		visited = new boolean[N][N];
+		//메뉴판
+	  pan = new int[N][N];
+		
+		//구름 채우기 
+		for(int i = 0; i < N; i ++){
+			StringTokenizer st2 = new StringTokenizer(br.readLine());
+			for(int j = 0; j< N; j ++){
+				pan[i][j] = Integer.parseInt(st2.nextToken());
+			}
+		}
+		
+		int result = 0;
+		//하나의 깃의 count가 하나의 BFS
+		//count가 == k 와 동일 한때 + 되어서 리턴 됨 
+		//모든 x,y 를 반복해야한다.
+		
+		for(int j =0; j < N; j++){
+			for(int d = 0; d < N; d++){
+				if(pan[j][d] != 1){
+					int count = countGit(j,d);
+				 if(count == K){
+					 result += 1;
+				 }else{
+					 continue;
+				 }	
