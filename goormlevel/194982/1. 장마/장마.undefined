@@ -1,0 +1,68 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		//집의 개수 
+		int N = Integer.parseInt(st.nextToken());
+		//장마 기간 
+		int M = Integer.parseInt(st.nextToken());
+		//마을의 땅 높이 i 번째 높이 Ki 
+		StringTokenizer st2 = new StringTokenizer(br.readLine());
+    int[] houses = new int[N+1];
+		int[] lastDay = new int[N+1];
+		lastDay[0] = 0;
+		
+		for(int i =1; i < N+1; i++){
+		  houses[i]=Integer.parseInt(st2.nextToken());
+			lastDay[i]=0;
+		}
+    //배수 시스템 작동 3 / i == 0 i 배수 시스템 작동 가능한 대상 크기는 최대 당일 포함 3일 
+		
+		//장마 기간 정보가 온다 . s 번 집 ~ e 번 까지 비가 내렸다. 
+		for(int d = 1; d < M+1; d++){
+			StringTokenizer st3 = new StringTokenizer(br.readLine());
+			//시작집
+			int f = Integer.parseInt(st3.nextToken());
+			//마지막집 
+			int l = Integer.parseInt(st3.nextToken());
+			
+			for(int s = f; s < l+1; s++){
+				houses[s] += 1;
+				lastDay[s] = d;
+			}
+			
+			//비가 내린 이후 배수 시스템 작동 여부 탐지 
+			//now - last =< 2 
+			//-1
+			if(d % 3 == 0){
+				//3의 배수인 경우 배수 시스템 트리거 
+				//대상자 최근 2일 내 비가 내일 위치
+				for(int fe = 1; fe < N+1 ; fe++){
+					if(d - lastDay[fe] <= 2){
+						houses[fe] -= 1;
+					}
+				}	
+			}
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		//1번 부터 N 까지 모든 집의 땅 높이 
+		for(int v = 1; v < N+1; v++){
+			sb.append(String.valueOf(houses[v])).append(" ");
+		}
+		
+		System.out.println(sb);
+	}
+}
+
+//1번집 -> N 순서대로 
+// 땅 높이 는 음수 , 양수 
+// M 일 동안 비가 온다. 
+//물의 높이가 1씩 증가 해당 위피 
+// 배수 시스템 = 장마 시작일의 3의 배수  , 비가 내리고 난 뒤에 작동 , -1
+//  땅 높이는 물의 높이 만큼 증가 
+// 최종 땅 높이 구하기 
+//최근 비가 내린 번호 어떻게 알지??
