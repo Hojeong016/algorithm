@@ -1,0 +1,36 @@
+//칸 채우기 
+//상태 필요 
+
+import java.io.*;
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int N = Integer.parseInt(br.readLine());
+		
+		long[][] dp = new long[N+1][8];
+		
+		int[] state = {0b000,0b100,0b010,0b001,0b101};
+
+		// 현재 내 줄의 상태를 기억하고 다음 줄의 올 수 있는 상태의 경우의 수를 찾는 것
+	 dp[0][0] = 1;
+
+		for(int i =1; i < N+1; i++){
+			for(int curr : state){
+				for(int next : state){
+					if((curr & next) == 0){
+						dp[i][curr] = (dp[i][curr] + dp[i-1][next]) % 100_000_007;
+					}
+				}
+			}
+		}
+
+		long answer = 0;
+	  for(int s: state){
+				answer = (answer +  dp[N][s]) % 100_000_007;
+		}
+
+		System.out.println(answer);
+	}
+}
+
+// dp -> 저장하는 것 : 붙일 수 있는지 여부 
