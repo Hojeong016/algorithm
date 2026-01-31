@@ -1,0 +1,48 @@
+import java.io.*;
+import java.util.*;
+
+class Main {
+	
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st ;
+		int N = Integer.parseInt(br.readLine());
+		ArrayList<String> names = new ArrayList<>();
+		
+		for(int i = 0; i < N; i++){
+			 st = new StringTokenizer(br.readLine());
+			 String action = st.nextToken();
+			 String name = st.nextToken();
+	
+			if(action.equals("add")){
+				names.add(name);
+				
+			}else if(action.equals("find")){
+				int count = 0; 
+				
+				for(String n : names){
+				  if(n.length() >= name.length()){
+						String partial = n.substring(0, name.length());
+						if(partial.equals(name)){
+							count += 1;
+						}
+					} else{
+						continue;
+					}
+				}
+				
+				System.out.println(count);
+			}else {
+				System.out.println("올바르지 않는 명령입니다.");
+			}
+		}
+		
+	}
+}
+
+//40분
+//7qns 
+//작업 
+// add name : 학생 이름 문자열 , name 새로운 학생으로 저장 
+// find partial : 문자열 partial 로 시작 , 이름의 개수를 출력 
+// 작업의 수 N , 위에서 아래로 작업이 순서대로 이루어짐 . 
