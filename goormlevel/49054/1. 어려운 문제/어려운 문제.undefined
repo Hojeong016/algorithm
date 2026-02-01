@@ -1,0 +1,44 @@
+import java.io.*;
+import java.util.*;
+class Main {
+
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int N = Integer.parseInt(br.readLine());
+
+		long crr = 1;
+		
+		//1~N까지의 숫자 
+    for(int i = 2; i < N+1; i++){
+			long sum = 0;
+
+			if(i > 10){
+				sum = 9L;
+			}else{
+				crr *= i;
+				while (crr > 0){
+				//마지막 연산자 + 누적 
+				sum += crr % 10;
+				//마지막 잘라내기 
+				crr /= 10;
+			 }
+			}
+			
+			crr = sum;
+		}
+		
+		System.out.println(crr);
+	}
+}
+
+
+//0! = 1
+//N! = n*(n-1)!
+
+// A 팩토리얼 연산 결괏값 
+// A 1자리 / 연산 종료 
+// A의 모든 자릿 수 더한 후 새로운 b 
+// b 로 다시 연산 반복 
+//10!
+//1 * 2 * 3 * 4 * 5 * 6 *  7 * 8 * 9 * 10 * 11
+//2 6 24 6 30 318 9 63 972 9 81 9 9 99 18 9 
